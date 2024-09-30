@@ -96,13 +96,12 @@ class AllotropeDF:
         node_id_31bit_mask = 0x7FFFFFFF
         template = [self._blank_node, self._resource_node, self._literal_node]
 
-        quad_count = 0
         for qrow in range(num_quads):
+            if qrow >= num_good_quads:
+                break
+
             quad_content = list()
             quad = quads[qrow, :]
-            quad_count += 1
-            if quad_count > num_good_quads:
-                break
 
             node_value_key = np.bitwise_and(quad, node_id_31bit_mask)
             node_key = np.bitwise_and(
